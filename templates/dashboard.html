@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow p-6">
+    <h1 class="text-2xl font-bold mb-6">Lab Dashboard</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="bg-blue-50 p-4 rounded-lg">
+            <h3 class="font-semibold text-blue-800">Total Machines</h3>
+            <p class="text-3xl font-bold">{{ machines_count }}</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg">
+            <h3 class="font-semibold text-green-800">Active Machines</h3>
+            <p class="text-3xl font-bold">{{ active_machines }}</p>
+        </div>
+        <div class="bg-yellow-50 p-4 rounded-lg">
+            <h3 class="font-semibold text-yellow-800">Needs Maintenance</h3>
+            <p class="text-3xl font-bold">{{ maintenance_needed }}</p>
+        </div>
+        <div class="bg-orange-50 p-4 rounded-lg">
+            <h3 class="font-semibold text-orange-800">Maintenance Soon</h3>
+            <p class="text-3xl font-bold">{{ maintenance_soon }}</p>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h2 class="text-xl font-semibold mb-4">Quick Actions</h2>
+        <div class="flex space-x-4">
+            <a href="/add-machine" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                <i class="fas fa-plus mr-2"></i>Add Machine
+            </a>
+            <a href="/machines" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">
+                <i class="fas fa-list mr-2"></i>View All Machines
+            </a>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-4">
+        <h2 class="text-xl font-semibold mb-4">Recent Activity</h2>
+        <div class="space-y-2">
+            {% for activity in recent_activity %}
+            <div class="border-b pb-2">
+                <p class="text-gray-600">{{ activity.timestamp }}</p>
+                <p>{{ activity.message }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
