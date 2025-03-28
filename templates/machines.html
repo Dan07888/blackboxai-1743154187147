@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold">Lab Machines</h1>
+        <a href="/add-machine" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+            <i class="fas fa-plus mr-2"></i>Add Machine
+        </a>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="py-2 px-4 border">ID</th>
+                    <th class="py-2 px-4 border">Name</th>
+                    <th class="py-2 px-4 border">IP Address</th>
+                    <th class="py-2 px-4 border">Specs</th>
+                    <th class="py-2 px-4 border">Status</th>
+                    <th class="py-2 px-4 border">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for machine in machines %}
+                <tr>
+                    <td class="py-2 px-4 border">{{ machine.id }}</td>
+                    <td class="py-2 px-4 border">{{ machine.name }}</td>
+                    <td class="py-2 px-4 border">{{ machine.ip_address }}</td>
+                    <td class="py-2 px-4 border">
+                        {{ machine.cpu_specs }}, {{ machine.ram_gb }}GB RAM, {{ machine.storage_gb }}GB
+                    </td>
+                    <td class="py-2 px-4 border">
+                        <span class="px-2 py-1 rounded-full text-xs 
+                            {% if machine.status == 'active' %}bg-green-100 text-green-800
+                            {% elif machine.status == 'maintenance' %}bg-yellow-100 text-yellow-800
+                            {% else %}bg-red-100 text-red-800{% endif %}">
+                            {{ machine.status|title }}
+                        </span>
+                    </td>
+                    <td class="py-2 px-4 border">
+                        <a href="/edit-machine/{{ machine.id }}" class="text-blue-600 hover:text-blue-800 mr-2">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="/delete-machine/{{ machine.id }}" class="text-red-600 hover:text-red-800">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
